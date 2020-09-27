@@ -4,6 +4,7 @@
 	"description": "API project for freeCodeCamp",
 	"main": "server.js",
 	"scripts": {
+		"prepublish": "npm install",
 		"start": "node server.js"
 	},
 	"dependencies": {
