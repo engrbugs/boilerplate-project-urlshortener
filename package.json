@@ -11,7 +11,8 @@
 		"mongodb": "^3.5.9",
 		"mongoose": "^5.9.27",
 		"cors": "^2.8.5",
-		"body-parser": "^1.19.0"
+		"body-parser": "^1.19.0",
+		"dns": "*"
 	},
 	"engines": {
 		"node": "^12.18.3"
