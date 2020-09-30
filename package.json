@@ -4,9 +4,9 @@
 	"description": "API project for freeCodeCamp",
 	"main": "server.js",
 	"scripts": {
-		"preinstall": "npm config set package-lock false",
+		"freshtall": "rm -rf node_modules && rm -rf package-lock.json && npm install",
 		"start": "node server.js",
-		"build": "npm install"
+		"build": "npm run freshtall"
 	},
 	"dependencies": {
 		"body-parser": "^1.19.0",
