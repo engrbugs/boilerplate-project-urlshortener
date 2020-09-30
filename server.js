@@ -127,5 +127,5 @@ app.get("/api/shorturl/:id", function (req, res) {
 
 
 app.listen(port, function () {
-  console.log('Node.js listening (v0.1.1) ... ' + port);
+  console.log('Node.js listening (v0.1.2) ... ' + port);
 });
