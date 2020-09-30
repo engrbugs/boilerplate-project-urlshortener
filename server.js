@@ -5,17 +5,32 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var dns = require('dns');
 
+require('dotenv').config();
+
 var cors = require('cors');
 const bodyParser = require('body-parser');
 
 var app = express();
+console.log(process.env);
 
 // Basic Configuration 
 var port = process.env.PORT || 3000;
 
 /** this project needs a db !! **/ 
-// mongoose.connect(process.env.DB_URI);
+console.log(process.env.MONGO_URI);
+//console.log(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+var urlSchema = mongoose.Schema({
+  orginal_url: {
+    type: String,
+    required: true
+  },
+  short_url: {
+    type: Number
+  }
+}); /* = <Your Model> */
 
+const Url = mongoose.model('Url', urlSchema);
 app.use(cors());
 
 /** this project needs to parse POST bodies **/
@@ -28,8 +43,29 @@ app.get('/', function(req, res){
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-const links = [];
+//const links = [];
 var id = 0;
+
+
+function createNewUrl(url, id) {
+//function newUrl(url, id) {
+  console.log('adding new url');
+  const link = new Url({
+    orginal_url: url,
+    short_url: `${id}`
+  });
+  
+  link.save((err, data) => {
+    console.log(err, data);
+    if(err) {
+      return(err);
+    } else {
+      return(null, data);
+    };
+    
+    
+  });
+};
 
 
 app.post("/api/shorturl/new", (req, res) => {
@@ -45,16 +81,25 @@ app.post("/api/shorturl/new", (req, res) => {
       });
     } else {
       id++;
-      const link = {
+      const data = {
         orginal_url: url,
         short_url: `${id}`
       };
+      console.log('adding new url');
+      const link = new Url(data);
+      
+      link.save(err);
+      if (err) {
+        return res.json({
+          error: err
+        });
+      } else {
+        return res.json(data);
+      }
+      //links.push(link);
 
-      links.push(link);
-
-      console.log(links);
-
-      return res.json(link);
+      //console.log(links);
+      
     };
   });
 
