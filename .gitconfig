@@ -1,6 +1,2 @@
 [core]
 	excludesfile = /etc/.gitignore-global
-	
-/node_modules
-.DS_Store
-/*.env
