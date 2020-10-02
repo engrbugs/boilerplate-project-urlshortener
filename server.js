@@ -54,8 +54,8 @@ app.get("/", function (req, res) {
 });
 
 app.post("/api/shorturl/new", (req, res) => {
-  const { url } = req.body;
-
+  let { url } = req.body;
+  url = url.replace(/\/?$/, "");
   const noHTTPSurl = url.replace(/^https?:\/\//, "");
   console.log(noHTTPSurl);
 
@@ -101,7 +101,6 @@ app.post("/api/shorturl/new", (req, res) => {
 });
 
 app.get("/api/shorturl/:id", function (req, res) {
-
   const { id } = req.params;
 
   console.log("search id:", id);
@@ -127,5 +126,5 @@ app.get("/api/shorturl/:id", function (req, res) {
 });
 
 app.listen(port, function () {
-  console.log("Node.js listening (v1.0.0) ... " + port);
+  console.log("Node.js listening (v1.0.1) ... " + port);
 });
